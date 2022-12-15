@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"net/url"
 	"time"
 
 	"github.com/tidwall/gjson"
@@ -52,7 +53,7 @@ func getAPIData(lat float64, lon float64, t time.Time) string {
 		"&from_date=", t.Format("2006-01-02"),
 		"&to_date=", t.Format("2006-01-02"),
 		"&elevation=1",
-		"&time=", t.Format("15%3A04%3A05"),
+		"&time=", url.QueryEscape(t.Format("15:04:05")),
 	)
 	fmt.Println(url)
 	fmt.Println(t)
