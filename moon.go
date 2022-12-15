@@ -25,7 +25,7 @@ func getMoonData(lat float64, lon float64, t time.Time) string {
 		newMoonTime := time.Unix(int64(m.NextNewMoon()), 0)
 		resp += fmt.Sprintf("New moon: %s\n", newMoonTime)
 	} else {
-		newMoonTime := time.Unix(int64(m.NewMoon()), 0)
+		newMoonTime := time.Unix(int64(m.NextNewMoon()), 0)
 		resp += fmt.Sprintf("New moon: %s\n", newMoonTime)
 		fullMoonTime := time.Unix(int64(m.NextFullMoon()), 0)
 		resp += fmt.Sprintf("Full moon: %s\n", fullMoonTime)
