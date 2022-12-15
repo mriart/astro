@@ -15,7 +15,7 @@ func getMoonData(lat float64, lon float64, t time.Time) string {
 	m := MoonPhase.New(t)
 
 	resp += "*Moon\n"
-	resp += fmt.Sprintf("Age (days): %f\n", m.Age())
+	resp += fmt.Sprintf("Age: %f days\n", m.Age())
 	resp += fmt.Sprintf("Phase (0-1): %f\n", m.Phase())
 	resp += fmt.Sprintf("Illumination (0-1): %f\n", m.Illumination())
 

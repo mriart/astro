@@ -96,11 +96,11 @@ func getPlanetsData(lat float64, lon float64, t time.Time) string {
 	saturn.GetCoordinates("Saturn", &apiData)
 
 	// Sprintf and return
-	resp += fmt.Sprintf("*Mercury\nAltitude: %.2f\nAzimuth(from N): %.2f\n\n", mercury.Altitude, mercury.Azimuth)
-	resp += fmt.Sprintf("*Venus\nAltitude: %.2f\nAzimuth(from N): %.2f\n\n", venus.Altitude, venus.Azimuth)
-	resp += fmt.Sprintf("*Mars\nAltitude: %.2f\nAzimuth(from N): %.2f\n\n", mars.Altitude, mars.Azimuth)
-	resp += fmt.Sprintf("*Jupiter\nAltitude: %.2f\nAzimuth(from N): %.2f\n\n", jupiter.Altitude, jupiter.Azimuth)
-	resp += fmt.Sprintf("*Saturn\nAltitude: %.2f\nAzimuth(from N): %.2f\n\n", saturn.Altitude, saturn.Azimuth)
+	resp += fmt.Sprintf("*Mercury\nAltitude: %.2f°\nAzimuth(from N): %.2f°\n\n", mercury.Altitude, mercury.Azimuth)
+	resp += fmt.Sprintf("*Venus\nAltitude: %.2f°\nAzimuth(from N): %.2f°\n\n", venus.Altitude, venus.Azimuth)
+	resp += fmt.Sprintf("*Mars\nAltitude: %.2f°\nAzimuth(from N): %.2f°\n\n", mars.Altitude, mars.Azimuth)
+	resp += fmt.Sprintf("*Jupiter\nAltitude: %.2f°\nAzimuth(from N): %.2f°\n\n", jupiter.Altitude, jupiter.Azimuth)
+	resp += fmt.Sprintf("*Saturn\nAltitude: %.2f°\nAzimuth(from N): %.2f°\n\n", saturn.Altitude, saturn.Azimuth)
 
 	//fmt.Println(resp)
 	return resp

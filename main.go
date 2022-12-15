@@ -31,7 +31,7 @@ func astro(w http.ResponseWriter, r *http.Request) {
 
 	// Load date, time and coordinates in responses
 	resp += fmt.Sprintf("Date, time: %s\n", t.Round(time.Second))
-	resp += fmt.Sprintf("Latitude: %f\nLongitude: %f\n\n", lat, lon)
+	resp += fmt.Sprintf("Latitude: %f°\nLongitude: %f°\n\n", lat, lon)
 
 	// Load sun, moon & planets data
 	resp += getSunData(lat, lon, t)
