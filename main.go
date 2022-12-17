@@ -7,6 +7,29 @@ import (
 	"time"
 )
 
+const preHTML = `
+<html>
+<head>
+    <meta charset='UTF-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+    body {
+        background-color: black;
+        color: white;
+    }
+    </style>
+</head>
+
+<body>
+    <pre>
+`
+
+const postHTML = `
+    </pre>
+</body>
+</html>
+`
+
 func astro(w http.ResponseWriter, r *http.Request) {
 	// Build the response
 	var resp string = ""
@@ -40,7 +63,7 @@ func astro(w http.ResponseWriter, r *http.Request) {
 	resp += x
 
 	//fmt.Println(resp)
-	fmt.Fprintf(w, "%s", resp)
+	fmt.Fprintf(w, "%s", preHTML+resp+postHTML)
 }
 
 func main() {
