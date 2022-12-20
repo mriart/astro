@@ -5,13 +5,12 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"os"
 	"time"
 
 	"github.com/tidwall/gjson"
 )
 
-const urlPre = "https://astronomy.p.rapidapi.com"
-const RapidAPIKey = "d290331181msh2e6a23ba8aff482p1cd1b9jsn491faa927e0b"
 const RapidAPIHost = "astronomy.p.rapidapi.com"
 
 type Planet struct {
@@ -46,8 +45,9 @@ func (p *Planet) GetCoordinates(planetName string, pData *string) {
 // Returns a json in format string to be processed by the library gjson
 func getAPIData(lat float64, lon float64, t time.Time) string {
 	url := fmt.Sprintf(
-		"%s%s%f%s%f%s%s%s%s%s%s%s",
-		urlPre,
+		"%s%s%s%f%s%f%s%s%s%s%s%s%s",
+		"https://",
+		RapidAPIHost,
 		"/api/v2/bodies/positions?latitude=", lat,
 		"&longitude=", lon,
 		"&from_date=", t.Format("2006-01-02"),
@@ -58,6 +58,10 @@ func getAPIData(lat float64, lon float64, t time.Time) string {
 	fmt.Println(url)
 	fmt.Println(t)
 
+	RapidAPIKey := os.Getenv("RAPID_API_KEY")
+	if RapidAPIKey == "" {
+		fmt.Println("Missing RAPID_API_KEY env variable")
+	}
 	req, _ := http.NewRequest("GET", url, nil)
 	req.Header.Add("X-RapidAPI-Key", RapidAPIKey)
 	req.Header.Add("X-RapidAPI-Host", RapidAPIHost)
