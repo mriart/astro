@@ -12,20 +12,21 @@ import (
 // 2) Diff of the sunrising
 // 3) Diff of the sunsetting
 func diffDayDuration(t time.Time, lat float64, lon float64) (time.Duration, time.Duration, time.Duration) {
-	tYest := t.Add(-24 * time.Hour)
-
 	times := suncalc.GetTimes(t, lat, lon)
-	timesYest := suncalc.GetTimes(tYest, lat, lon)
-
 	sRise := times[suncalc.Sunrise].Time
 	sSet := times[suncalc.Sunset].Time
+	fmt.Printf("Today, rise: %s, set: %s\n", sRise, sSet)
 
+	tYest := t.Add(-24 * time.Hour)
+	timesYest := suncalc.GetTimes(tYest, lat, lon)
 	sRiseYest := timesYest[suncalc.Sunrise].Time
 	sSetYest := timesYest[suncalc.Sunset].Time
+	//fmt.Printf("Yestd, rise: %s, set: %s\n", sRiseYest, sSetYest)
 
 	diffRise := sRiseYest.Add(24 * time.Hour).Sub(sRise)
-	diffSet := sSetYest.Add(24 * time.Hour).Sub(sSet)
+	diffSet := -sSetYest.Add(24 * time.Hour).Sub(sSet)
 	diffDay := diffRise + diffSet
+	//fmt.Printf("Diff:, rise: %s, set: %s\n", diffRise, diffSet)
 
 	return diffRise.Round(time.Second), diffSet.Round(time.Second), diffDay.Round(time.Second)
 }
