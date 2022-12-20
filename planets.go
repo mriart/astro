@@ -53,7 +53,7 @@ func getAPIData(lat float64, lon float64, t time.Time) string {
 		"&from_date=", t.Format("2006-01-02"),
 		"&to_date=", t.Format("2006-01-02"),
 		"&elevation=1",
-		"&time=", url.QueryEscape(t.Format("15:04:05")),
+		"&time=", url.QueryEscape(t.Local().Format("15:04:05")), //Use t.Local() because the API server inferres TZ from lat/lon, don't use UTC
 	)
 	fmt.Println(url)
 	fmt.Println(t)
@@ -73,7 +73,7 @@ func getAPIData(lat float64, lon float64, t time.Time) string {
 	defer res.Body.Close()
 	body, _ := io.ReadAll(res.Body)
 
-	//fmt.Println(string(body))
+	fmt.Println(string(body))
 	return string(body)
 }
 
