@@ -15,7 +15,7 @@ func diffDayDuration(t time.Time, lat float64, lon float64) (time.Duration, time
 	times := suncalc.GetTimes(t, lat, lon)
 	sRise := times[suncalc.Sunrise].Time
 	sSet := times[suncalc.Sunset].Time
-	fmt.Printf("Today, rise: %s, set: %s\n", sRise, sSet)
+	//fmt.Printf("Today, rise: %s, set: %s\n", sRise, sSet)
 
 	tYest := t.Add(-24 * time.Hour)
 	timesYest := suncalc.GetTimes(tYest, lat, lon)
@@ -32,7 +32,7 @@ func diffDayDuration(t time.Time, lat float64, lon float64) (time.Duration, time
 }
 
 // Get data for Sun and return string to main
-func getSunData(lat float64, lon float64, t time.Time) string {
+func getSunData(lat float64, lon float64, t time.Time, loc *time.Location) string {
 	// Variable to load the response and return
 	var resp string = ""
 
@@ -45,8 +45,8 @@ func getSunData(lat float64, lon float64, t time.Time) string {
 	diffRise, diffSet, diffDay := diffDayDuration(t, lat, lon)
 
 	resp += "*Sun\n"
-	resp += fmt.Sprintf("Sunrise: %s\n", sRise)
-	resp += fmt.Sprintf("Sunset: %s\n", sSet)
+	resp += fmt.Sprintf("Sunrise: %s\n", sRise.In(loc))
+	resp += fmt.Sprintf("Sunset: %s\n", sSet.In(loc))
 	resp += fmt.Sprintf("Day duration: %s\n", sDuration)
 	resp += fmt.Sprintf("Diff since yesterday: %s (%s/%s)\n\n", diffDay, diffRise, diffSet)
 
