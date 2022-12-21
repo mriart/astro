@@ -51,12 +51,16 @@ func astro(w http.ResponseWriter, r *http.Request) {
 	// URL has coordinates (lat & lon), get them, convert to float
 	lat, _ := strconv.ParseFloat(q["lat"][0], 64)
 	lon, _ := strconv.ParseFloat(q["lon"][0], 64)
+	fmt.Println(lat, lon)
 
 	// Get the time now for the observation, and time zone from lat & lon
 	t := time.Now()
 	tz := timezonemapper.LatLngToTimezoneString(lat, lon)
-	loc, _ := time.LoadLocation(tz)
-	//fmt.Printf("Timezone: %s\nTime in location: %s\n", tz, t.In(loc))
+	loc, err := time.LoadLocation(tz)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Printf("Timezone: %s\nTime in location: %s\n", tz, t.In(loc))
 
 	// Load date, time and coordinates in responses
 	resp += fmt.Sprintf("Date, time: %s\n", t.In(loc).Round(time.Second))
